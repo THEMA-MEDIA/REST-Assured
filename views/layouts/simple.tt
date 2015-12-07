@@ -1,0 +1,7 @@
+<html>
+<head><title>Simple Web</title></head>
+<body>
+    <h1>Simple Web example</h1>
+    [% content %]
+</body>
+</html>
