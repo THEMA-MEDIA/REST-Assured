@@ -1,8 +1,11 @@
 package SimpleWebUsers;
 
 use Dancer2;
-
 use Dancer2::Plugin::DBIC;
+
+get '/' => sub {
+    template 'index';
+};
 
 get '/users' => sub {
     my $users;
