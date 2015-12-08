@@ -28,8 +28,16 @@ column "email" => {
 
 sub sqlt_deploy_hook {
     $_[1]->add_index(name => 'uuid_idx', fields => ['uuid'])
-}
-# primary_key "_primary_key";
+};
+
+sub serialize {
+    return {
+        uuid => $_[0]->uuid,
+        name => $_[0]->name,
+        nick => $_[0]->nick_name,
+        mail => $_[0]->email,
+    };
+};
 
 =head1 COPYRIGHT
 

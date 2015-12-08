@@ -4,9 +4,17 @@ charset:    "UTF-8"
 template:   template_toolkit
 layout:     simple.tt
 
+serializer: "YAML"
+
+engines:
+    serializer:
+        JSON:
+            pretty: 1
+
 plugins:
     DBIC:
         default:
             dsn: dbi:SQLite:dbname=../etc/MyData.sqlite
             schema_class: MyData::Schema
+    
             
