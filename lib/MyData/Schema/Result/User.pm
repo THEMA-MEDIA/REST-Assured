@@ -4,25 +4,32 @@ use MyData::Schema::Candy;
 
 table "users";
 
-column "user_id" => {
-    data_type          => 'integer',
-    is_auto_increment  => 1,
+primary_column "_primary_key" => {
+    data_type           => 'integer',
+    is_auto_increment   => 1,
 };
 
-column "first_name" => {
-    data_type          => 'text',
+column "uuid" => {
+    data_type           => 'text',
+};
+
+column "name" => {
+    data_type           => 'text',
 };
 
 column "nick_name" => {
-    data_type          => 'text',
-    is_nullable        => 1,
+    data_type           => 'text',
+    is_nullable         => 1,
 };
 
 column "email" => {
-    data_type          => 'text',
+    data_type           => 'text',
 };
 
-primary_key "user_id";
+sub sqlt_deploy_hook {
+    $_[1]->add_index(name => 'uuid_idx', fields => ['uuid'])
+}
+# primary_key "_primary_key";
 
 =head1 COPYRIGHT
 

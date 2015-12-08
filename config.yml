@@ -1,4 +1,12 @@
-appname: "Rest Assured"
-charset: "UTF-8"
+appname:    "Rest Assured"
+charset:    "UTF-8"
 
-layout: simple.tt
+template:   template_toolkit
+layout:     simple.tt
+
+plugins:
+    DBIC:
+        default:
+            dsn: dbi:SQLite:dbname=../etc/MyData.sqlite
+            schema_class: MyData::Schema
+            

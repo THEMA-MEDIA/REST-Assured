@@ -1,0 +1,39 @@
+<h1>Simple Web Users</h1>
+
+<form action="users">
+    <table>
+        <tr>
+            <td>
+                Name:
+            </td>
+            <td>
+                <input type="text" name="name">
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Search...">
+</form>
+
+[% IF users %]
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Nick
+        </th>
+    </tr>
+[% WHILE (user = users.next) %]
+    <tr>
+        <td>
+            <a href="/users/[% user.uuid %]">
+            [% user.name %]
+            </a>
+        </td>
+        <td>
+            [% user.nick_name %]
+        </td>
+    </tr>
+[% END %]
+[% END %]

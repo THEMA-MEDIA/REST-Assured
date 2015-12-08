@@ -1,0 +1,28 @@
+<h1>User Details</h1>
+
+<table>
+    <tr>
+        <th align="right">
+            Name:
+        </th>
+        <td>
+            [% user.name %]
+        </td>
+    </tr>
+    <tr>
+        <th align="right">
+            Nick:
+        </th>
+        <td>
+            [% user.nick_name %]
+        </td>
+    </tr>
+    <tr>
+        <th align="right">
+            E-mail:
+        </th>
+        <td>
+            [% user.email %]
+        </td>
+    </tr>
+</table>
