@@ -4,7 +4,7 @@ charset:    "UTF-8"
 template:   template_toolkit
 layout:     simple.tt
 
-serializer: "YAML"
+serializer: Mutable
 
 engines:
     serializer:
