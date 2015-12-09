@@ -1,12 +1,12 @@
 use lib '../lib';
 
-use SimpleWebUsers;
+use SimpleTranslations;
 
 use Plack::Builder;
 use Plack::Handler::CGI;
 
 my $app = builder {
-    SimpleWebUsers->to_app;
+    SimpleTranslations->to_app;
 };
 
 __END__

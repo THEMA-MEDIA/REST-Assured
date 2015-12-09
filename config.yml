@@ -16,5 +16,6 @@ plugins:
         default:
             dsn: dbi:SQLite:dbname=../etc/MyData.sqlite
             schema_class: MyData::Schema
-    
-            
+    Multilang:
+        languages: [ 'en', 'nl']
+        default: 'en'
