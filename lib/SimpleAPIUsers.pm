@@ -2,8 +2,11 @@ package SimpleAPIUsers;
 
 use Dancer2;
 use Dancer2::Plugin::DBIC;
+use Dancer2::Plugin::REST;
 
-get '/users' => sub {
+prepare_serializer_for_format;
+
+get '/users.:format' => sub {
     my $users;
     if (param 'name') {
         $users = resultset('User')
@@ -14,7 +17,7 @@ get '/users' => sub {
     return [ map +{href=>'/users/'.$_->uuid, label=>$_->name}, $users->all ] ;
 };
 
-get '/users/:uuid' => sub {
+get '/users/:uuid.:format' => sub {
     my $user = resultset('User')->find( { uuid => params->{uuid} } );
     if ( !$user ) {
         status(404);
