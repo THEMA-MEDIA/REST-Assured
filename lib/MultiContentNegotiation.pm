@@ -19,9 +19,9 @@ get '/translations' => sub {
         [ keys %$translations ] => sub {
             my $translation = $translations->{http_chosen_language()};
             http_choose_media_type(
-                'application/json'   => sub{ to_json $translation, {pretty=>1}},
-                'text/x-yaml'        => sub{ to_yaml $translation},
-                'text/x-data-dumper' => sub{ to_dumper $translation },
+                'application/json'   => sub { to_json   $translation },
+                'text/x-yaml'        => sub { to_yaml   $translation },
+                'text/x-data-dumper' => sub { to_dumper $translation },
                 { default => undef }
             )
         }, { default => 'en' } )

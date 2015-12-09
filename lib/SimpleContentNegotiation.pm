@@ -17,7 +17,7 @@ my $translations = {
 get '/translations' => sub {
     http_choose_language(
         [ keys %$translations ] => sub {
-            to_json $translations->{http_chosen_language()}, {pretty => 1 }
+            to_json $translations->{http_chosen_language()}
         },
         { default => 'en' }
     )
