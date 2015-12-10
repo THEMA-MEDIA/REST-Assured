@@ -12,7 +12,12 @@ get '/users' => sub {
     } else {
         $users = resultset('User');
     };
-    return [ map +{href=>'/users/'.$_->uuid, label=>$_->name}, $users->all ] ;
+    http_choose_media_type(
+        'application/json'   => sub { to_json   $users->_serialize },
+        'text/x-yaml'        => sub { to_yaml   $users->_serialize },
+        'text/x-data-dumper' => sub { to_dumper $users->_serialize },
+        { default => undef }
+    );
 };
 
 get '/users/:uuid' => sub {
@@ -21,16 +26,10 @@ get '/users/:uuid' => sub {
         status(404);
         return;
     }
-    my $data = {
-        uuid        => $user->uuid,
-        name        => $user->name,
-        nick_name   => $user->nick_name,
-        email       => $user->email,
-    };
     http_choose_media_type(
-        'application/json'   => sub { to_json   $data },
-        'text/x-yaml'        => sub { to_yaml   $data },
-        'text/x-data-dumper' => sub { to_dumper $data },
+        'application/json'   => sub { to_json   $user->_serialize },
+        'text/x-yaml'        => sub { to_yaml   $user->_serialize },
+        'text/x-data-dumper' => sub { to_dumper $user->_serialize },
         { default => undef }
     );
 };

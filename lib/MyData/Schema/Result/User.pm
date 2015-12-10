@@ -30,7 +30,7 @@ sub sqlt_deploy_hook {
     $_[1]->add_index(name => 'uuid_idx', fields => ['uuid'])
 };
 
-sub serialize {
+sub _serialize {
     return {
         uuid => $_[0]->uuid,
         name => $_[0]->name,
