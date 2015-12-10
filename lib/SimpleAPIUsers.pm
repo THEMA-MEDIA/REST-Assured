@@ -6,6 +6,7 @@ use Dancer2::Plugin::HTTP::ContentNegotiation;
 use Dancer2::Plugin::HTTP::Caching;
 use Dancer2::Plugin::HTTP::ConditionalRequest;
 use Dancer2::Plugin::HTTP::Auth::Extensible;
+use Dancer2::Plugin::HTTP::Cache::Chi;
 use DateTime::Format::HTTP;
 
 get '/users' => sub {
