@@ -2,12 +2,7 @@ package SimpleAPIUsers;
 
 use Dancer2;
 use Dancer2::Plugin::DBIC;
-use Dancer2::Plugin::HTTP::ContentNegotiation;
-use Dancer2::Plugin::HTTP::Caching;
-use Dancer2::Plugin::HTTP::ConditionalRequest;
-use Dancer2::Plugin::HTTP::Auth::Extensible;
-use Dancer2::Plugin::HTTP::Cache::Chi;
-use DateTime::Format::HTTP;
+use Dancer2::Plugin::HTTP::Bundle;
 
 get '/users' => sub {
     my $users;
@@ -37,8 +32,7 @@ get '/users/:uuid' => sub {
     http_cache_public;
     http_expire 'Sun, 13 Dec 2015 00:00:00 GMT';
     http_conditional {
-        last_modified =>
-            DateTime::Format::HTTP->format_datetime($user->last_updated)
+        last_modified => $user->last_updated
     } => sub {
         http_choose_media_type(
             'application/json'   => sub { to_json   $user->_serialize },
@@ -56,8 +50,7 @@ put '/users/:uuid' => http_require_role 'admin' => sub {
         return;
     }
     http_conditional {
-        last_modified =>
-            DateTime::Format::HTTP->format_datetime($user->last_updated),
+        last_modified => $user->last_updated,
         required => true,
     } => sub {
         $user->update( from_json(request->body) );
