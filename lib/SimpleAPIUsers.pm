@@ -5,6 +5,7 @@ use Dancer2::Plugin::DBIC;
 use Dancer2::Plugin::HTTP::ContentNegotiation;
 use Dancer2::Plugin::HTTP::Caching;
 use Dancer2::Plugin::HTTP::ConditionalRequest;
+use Dancer2::Plugin::HTTP::Auth::Extensible;
 use DateTime::Format::HTTP;
 
 get '/users' => sub {
@@ -47,7 +48,7 @@ get '/users/:uuid' => sub {
     };
 };
 
-put '/users/:uuid' => sub {
+put '/users/:uuid' => http_require_role 'admin' => sub {
     my $user = resultset('User')->find( { uuid => params->{uuid} } );
     if ( !$user ) {
         status(404);
