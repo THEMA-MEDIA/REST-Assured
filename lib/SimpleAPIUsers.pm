@@ -53,9 +53,15 @@ put '/users/:uuid' => sub {
         status(404);
         return;
     }
-    $user->update( from_json(request->body) );
-    status(200);
-    return;
+    http_conditional {
+        last_modified =>
+            DateTime::Format::HTTP->format_datetime($user->last_updated),
+        required => true,
+    } => sub {
+        $user->update( from_json(request->body) );
+        status(200);
+        return;
+    };
 };
 
 1;
