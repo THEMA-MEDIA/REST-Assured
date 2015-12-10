@@ -1,6 +1,8 @@
 package MyData::Schema::Result::User;
 use utf8;
 use MyData::Schema::Candy;
+__PACKAGE__->load_components( 'InflateColumn::DateTime', 'TimeStamp' );
+
 
 table "users";
 
@@ -24,6 +26,13 @@ column "nick_name" => {
 
 column "email" => {
     data_type           => 'text',
+};
+
+column "last_updated" => {
+    data_type           => 'datetime',
+    is_nullable         => 1,
+    set_on_create       => 1,
+    set_on_update       => 1,
 };
 
 sub sqlt_deploy_hook {

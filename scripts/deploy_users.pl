@@ -9,7 +9,7 @@ my $schema = MyData::Schema
 
 $schema->deploy( { sources => [ 'User' ], add_drop_table => 1 } );
 
-$schema->resultset('User')->populate([
+my $reultset = $schema->resultset('User')->populate([
     {   _primary_key    => 1,
         uuid            => UUID::Random::generate(),
         name            => 'John Doe',
