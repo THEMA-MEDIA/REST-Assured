@@ -47,4 +47,15 @@ get '/users/:uuid' => sub {
     };
 };
 
+put '/users/:uuid' => sub {
+    my $user = resultset('User')->find( { uuid => params->{uuid} } );
+    if ( !$user ) {
+        status(404);
+        return;
+    }
+    $user->update( from_json(request->body) );
+    status(200);
+    return;
+};
+
 1;
