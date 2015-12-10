@@ -3,6 +3,7 @@ package SimpleAPIUsers;
 use Dancer2;
 use Dancer2::Plugin::DBIC;
 use Dancer2::Plugin::HTTP::ContentNegotiation;
+use Dancer2::Plugin::HTTP::Caching;
 
 get '/users' => sub {
     my $users;
@@ -12,6 +13,8 @@ get '/users' => sub {
     } else {
         $users = resultset('User');
     };
+    http_cache_max_age 300; # five minutes
+    http_cache_public;
     http_choose_media_type(
         'application/json'   => sub { to_json   $users->_serialize },
         'text/x-yaml'        => sub { to_yaml   $users->_serialize },
@@ -26,6 +29,9 @@ get '/users/:uuid' => sub {
         status(404);
         return;
     }
+    http_cache_max_age 3600; # one hour
+    http_cache_public;
+    http_expire 'Sun, 13 Dec 2015 00:00:00 GMT';
     http_choose_media_type(
         'application/json'   => sub { to_json   $user->_serialize },
         'text/x-yaml'        => sub { to_yaml   $user->_serialize },

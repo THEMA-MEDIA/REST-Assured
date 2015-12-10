@@ -32,7 +32,7 @@ sub sqlt_deploy_hook {
 
 sub _serialize {
     return {
-        uuid => $_[0]->uuid,
+#       uuid => $_[0]->uuid,
         name => $_[0]->name,
         nick => $_[0]->nick_name,
         mail => $_[0]->email,
